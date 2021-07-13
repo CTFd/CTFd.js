@@ -1,0 +1,23 @@
+{
+  "name": "@ctfdio/ctfd-js",
+  "version": "0.0.1",
+  "description": "Javascript library for CTFd interface and themeing",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CTFd/CTFd.js.git"
+  },
+  "author": "CTFd LLC <opensource@ctfd.io>",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "dayjs": "^1.10.5",
+    "event-source-polyfill": "^1.0.24",
+    "howler": "^2.2.1",
+    "jquery": "^3.6.0",
+    "markdown-it": "~10.0.0",
+    "whatwg-fetch": "^3.6.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.12.15"
+  }
+}
