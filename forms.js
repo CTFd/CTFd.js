@@ -20,7 +20,7 @@ function serializeArray(form) {
   return pairs;
 }
 
-export function serializeJSON(form, omit_nulls) {
+export function serializeJSON(form, initial, omit_nulls) {
   let params = {};
   let values = serializeArray(form);
 
@@ -41,7 +41,7 @@ export function serializeJSON(form, omit_nulls) {
         params[x.name] = x.value;
       } else {
         let input = form.querySelector(`[name='${x.name}']`);
-        if (input.dataset.initial !== input.value) {
+        if (initial[input.name] !== input.value) {
           params[x.name] = x.value;
         }
       }
