@@ -19,7 +19,7 @@ export async function generateToken(body) {
 }
 
 export async function deleteToken(tokenId) {
-  const response = CTFd.fetch(`/api/v1/tokens/${tokenId}`, {
+  const response = await CTFd.fetch(`/api/v1/tokens/${tokenId}`, {
     method: "DELETE"
   });
   const token = await response.json();
