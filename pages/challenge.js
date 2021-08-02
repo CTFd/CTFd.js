@@ -54,6 +54,8 @@ export async function submitChallenge(challengeId, challengeValue) {
   if (CTFd._functions.challenge.displaySubmissionResponse) {
     CTFd._functions.challenge.displaySubmissionResponse(result);
   }
+
+  return result;
 }
 
 // Hints
