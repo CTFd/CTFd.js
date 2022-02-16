@@ -10,10 +10,10 @@
   "author": "CTFd LLC <opensource@ctfd.io>",
   "license": "Apache 2.0",
   "dependencies": {
+    "cash-dom": "^8.1.1",
     "dayjs": "^1.10.5",
     "event-source-polyfill": "^1.0.24",
     "howler": "^2.2.1",
-    "jquery": "^3.6.0",
     "markdown-it": "~10.0.0",
     "whatwg-fetch": "^3.6.2"
   },

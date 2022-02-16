@@ -35,7 +35,7 @@ import {
 import eventsInit from "./events/main";
 
 import MarkdownIt from "markdown-it";
-import $ from "jquery";
+import $ from "cash-dom";
 
 const user = {};
 const _internal = {};
