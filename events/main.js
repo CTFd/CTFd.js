@@ -43,17 +43,14 @@ export default root => {
   function render(data) {
     switch (data.type) {
       case "toast": {
-        console.log(data);
         CTFd._functions.events.eventToast(data);
         break;
       }
       case "alert": {
-        console.log(data);
         CTFd._functions.events.eventAlert(data);
         break;
       }
       case "background": {
-        console.log(data);
         CTFd._functions.events.eventBackground(data);
         break;
       }
