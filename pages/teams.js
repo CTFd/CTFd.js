@@ -14,7 +14,7 @@ export async function getInviteToken() {
 }
 
 export async function disbandTeam() {
-  const response = CTFd.fetch("/api/v1/teams/me", {
+  const response = await CTFd.fetch("/api/v1/teams/me", {
     method: "DELETE"
   });
   const body = await response.json();
