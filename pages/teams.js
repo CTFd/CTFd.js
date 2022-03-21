@@ -36,22 +36,19 @@ export async function teamSolves(teamId) {
     method: "GET"
   });
   const body = await response.json();
-  let solves = body["data"];
-  return solves;
+  return body;
 }
 export async function teamFails(teamId) {
   const response = await CTFd.fetch(`/api/v1/teams/${teamId}/fails`, {
     method: "GET"
   });
   const body = await response.json();
-  let fails = body["data"];
-  return fails;
+  return body;
 }
 export async function teamAwards(teamId) {
   const response = await CTFd.fetch(`/api/v1/teams/${teamId}/awards`, {
     method: "GET"
   });
   const body = await response.json();
-  let awards = body["data"];
-  return awards;
+  return body;
 }
