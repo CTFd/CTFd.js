@@ -5,8 +5,7 @@ export async function userSolves(userId) {
     method: "GET"
   });
   const body = await response.json();
-  let solves = body["data"];
-  return solves;
+  return body;
 }
 
 export async function userFails(userId) {
@@ -14,8 +13,7 @@ export async function userFails(userId) {
     method: "GET"
   });
   const body = await response.json();
-  let fails = body["data"];
-  return fails;
+  return body;
 }
 
 export async function userAwards(userId) {
@@ -23,6 +21,5 @@ export async function userAwards(userId) {
     method: "GET"
   });
   const body = await response.json();
-  let awards = body["data"];
-  return awards;
+  return body;
 }
