@@ -63,7 +63,17 @@ export async function loadHint(hintId) {
   const response = await CTFd.fetch(`/api/v1/hints/${hintId}`, {
     method: "GET"
   });
-  return await response.json();
+  let hint = await response.json();
+  return hint;
+}
+
+export async function loadUnlock(hintId) {
+  const response = await CTFd.fetch(`/api/v1/unlocks`, {
+    method: "POST",
+    body: JSON.stringify({ target: hintId, type: "hints" })
+  });
+  const unlock = await response.json();
+  return unlock;
 }
 
 export async function displayHint(hintId) {
@@ -75,11 +85,7 @@ export async function displayHint(hintId) {
   } else {
     let res = await displayUnlock(hint);
     if (res) {
-      const response = await CTFd.fetch(`/api/v1/unlocks`, {
-        method: "POST",
-        body: JSON.stringify({ target: hint.id, type: "hints" })
-      });
-      const unlock = await response.json();
+      let unlock = loadUnlock(hintId);
 
       // Display hint or error depending on unlock
       if (unlock.success) {

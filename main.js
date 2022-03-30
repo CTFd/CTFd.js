@@ -18,6 +18,8 @@ import {
   loadSolves,
   displaySolves,
   loadHint,
+  loadUnlock,
+  displayUnlock,
   displayHint
 } from "./pages/challenge";
 import { getScoreboard, getScoreboardDetail } from "./pages/scoreboard";
@@ -95,6 +97,8 @@ const pages = {
     loadSolves,
     displaySolves,
     loadHint,
+    loadUnlock,
+    displayUnlock,
     displayHint
   },
   challenges: {
