@@ -63,17 +63,15 @@ export async function loadHint(hintId) {
   const response = await CTFd.fetch(`/api/v1/hints/${hintId}`, {
     method: "GET"
   });
-  const body = await response.json();
-  return body["data"];
+  return await response.json();
 }
 
 export async function displayHint(hintId) {
-  let hint = await loadHint(hintId);
+  let response = await loadHint(hintId);
+  let hint = response.data;
   if (hint.content) {
-    if (CTFd._functions.challenge.displayHint) {
-      CTFd._functions.challenge.displayHint(hint);
-      return;
-    }
+    CTFd._functions.challenge.displayHint(hint);
+    return;
   } else {
     let res = await displayUnlock(hint);
     if (res) {
@@ -87,18 +85,13 @@ export async function displayHint(hintId) {
       if (unlock.success) {
         displayHint(hintId);
       } else {
-        if (CTFd._functions.challenge.displayUnlockError) {
-          CTFd._functions.challenge.displayUnlockError(unlock);
-          return;
-        }
+        CTFd._functions.challenge.displayUnlockError(unlock);
       }
     }
   }
 }
 export async function displayUnlock(hint) {
-  if (CTFd._functions.challenge.displayUnlock) {
-    return CTFd._functions.challenge.displayUnlock(hint);
-  }
+  return CTFd._functions.challenge.displayUnlock(hint);
 }
 
 // Solves

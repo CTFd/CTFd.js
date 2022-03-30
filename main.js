@@ -46,9 +46,20 @@ const _functions = {
     renderChallenge: null,
 
     // Displaying hints and unlocks
-    displayHint: null,
-    displayUnlock: null,
-    displayUnlockError: null,
+    displayHint: (hint) => {
+      alert(hint.content);
+    },
+    displayUnlock: (hint) => {
+      return confirm("Are you sure you'd like to unlock this hint?");
+    },
+    displayUnlockError: (unlock) => {
+      let msg = [];
+      Object.keys(unlock.errors).map((error) => {
+        msg.push(unlock.errors[error]);
+      });
+      let errorMsg = msg.join('\n');
+      alert(errorMsg);
+    },
 
     // Submit challenge and display reponse data
     submitChallenge: null,
