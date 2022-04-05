@@ -1,6 +1,8 @@
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 
+dayjs.extend(advancedFormat);
+
 export function renderTimes() {
   let times = document.querySelectorAll("[data-time]");
   for (const timeElem of times) {
@@ -34,19 +36,17 @@ export function copyToClipboard(event, selector) {
   // Show tooltip to user
   $(event.target).tooltip({
     title: "Copied!",
-    trigger: "manual"
+    trigger: "manual",
   });
   $(event.target).tooltip("show");
 
-  setTimeout(function() {
+  setTimeout(function () {
     $(event.target).tooltip("hide");
   }, 1500);
 }
 
 export function htmlEntities(string) {
-  return $("<div/>")
-    .text(string)
-    .html();
+  return $("<div/>").text(string).html();
 }
 
 // https://gist.github.com/0x263b/2bdd90886c2036a1ad5bcf06d6e6fb37
