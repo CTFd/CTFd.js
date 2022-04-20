@@ -5,12 +5,12 @@ import {
   colorHash,
   copyToClipboard,
   hashCode,
-  renderTimes
+  renderTimes,
 } from "./ui";
 import {
   getChallenges,
   getChallenge,
-  displayChallenges
+  displayChallenges,
 } from "./pages/challenges";
 import {
   displayChallenge,
@@ -20,7 +20,7 @@ import {
   loadHint,
   loadUnlock,
   displayUnlock,
-  displayHint
+  displayHint,
 } from "./pages/challenge";
 import { getScoreboard, getScoreboardDetail } from "./pages/scoreboard";
 import { updateSettings, generateToken, deleteToken } from "./pages/settings";
@@ -31,7 +31,7 @@ import {
   updateTeamSettings,
   teamSolves,
   teamFails,
-  teamAwards
+  teamAwards,
 } from "./pages/teams";
 
 import eventsInit from "./events/main";
@@ -59,7 +59,7 @@ const _functions = {
       Object.keys(unlock.errors).map((error) => {
         msg.push(unlock.errors[error]);
       });
-      let errorMsg = msg.join('\n');
+      let errorMsg = msg.join("\n");
       alert(errorMsg);
     },
 
@@ -68,27 +68,27 @@ const _functions = {
     displaySubmissionResponse: null,
 
     // Display solves for challenge
-    displaySolves: null
+    displaySolves: null,
   },
   challenges: {
     // Display challenges on page
     displayChallenges: null,
 
     // How to sort challenges before display
-    sortChallenges: null
+    sortChallenges: null,
   },
   events: {
     eventAlert: null,
     eventToast: null,
-    eventBackground: null
-  }
+    eventBackground: null,
+  },
 };
 const ui = {
   htmlEntities,
   colorHash,
   copyToClipboard,
   hashCode,
-  renderTimes
+  renderTimes,
 };
 const pages = {
   challenge: {
@@ -99,26 +99,26 @@ const pages = {
     loadHint,
     loadUnlock,
     displayUnlock,
-    displayHint
+    displayHint,
   },
   challenges: {
     getChallenges,
     getChallenge,
-    displayChallenges
+    displayChallenges,
   },
   scoreboard: {
     getScoreboard,
-    getScoreboardDetail
+    getScoreboardDetail,
   },
   settings: {
     updateSettings,
     generateToken,
-    deleteToken
+    deleteToken,
   },
   users: {
     userSolves,
     userFails,
-    userAwards
+    userAwards,
   },
   teams: {
     getInviteToken,
@@ -126,16 +126,16 @@ const pages = {
     updateTeamSettings,
     teamSolves,
     teamFails,
-    teamAwards
-  }
+    teamAwards,
+  },
 };
 const lib = {
   $,
-  markdown
+  markdown,
 };
 
 let initialized = false;
-const init = data => {
+const init = (data) => {
   if (initialized) {
     return;
   }
@@ -144,6 +144,8 @@ const init = data => {
   config.urlRoot = data.urlRoot || config.urlRoot;
   config.csrfNonce = data.csrfNonce || config.csrfNonce;
   config.userMode = data.userMode || config.userMode;
+  config.userName = data.userName || config.userName;
+  config.userEmail = data.userEmail || config.userEmail;
   config.start = data.start || config.start;
   config.end = data.end || config.end;
   config.themeSettings = data.themeSettings || config.themeSettings;
@@ -152,15 +154,15 @@ const init = data => {
   eventsInit(config.urlRoot);
 };
 const plugin = {
-  run: f => {
+  run: (f) => {
     f(CTFd);
-  }
+  },
 };
 function markdown(config) {
   // Merge passed config with original. Default to original.
   const md_config = { ...{ html: true, linkify: true }, ...config };
   const md = MarkdownIt(md_config);
-  md.renderer.rules.link_open = function(tokens, idx, options, env, self) {
+  md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
     tokens[idx].attrPush(["target", "_blank"]);
     return self.renderToken(tokens, idx, options);
   };
@@ -177,7 +179,7 @@ const CTFd = {
   _internal,
   _functions,
   plugin,
-  lib
+  lib,
 };
 
 window.CTFd = CTFd;
