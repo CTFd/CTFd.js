@@ -38,6 +38,10 @@ import eventsInit from "./events/main";
 
 import MarkdownIt from "markdown-it";
 import $ from "cash-dom";
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+
+dayjs.extend(advancedFormat);
 
 const user = {};
 const _internal = {};
@@ -132,6 +136,7 @@ const pages = {
 const lib = {
   $,
   markdown,
+  dayjs,
 };
 
 let initialized = false;
