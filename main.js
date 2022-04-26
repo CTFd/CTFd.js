@@ -1,7 +1,6 @@
 import fetch from "./fetch";
 import config from "./config";
 import {
-  htmlEntities,
   colorHash,
   copyToClipboard,
   hashCode,
@@ -33,6 +32,7 @@ import {
   teamFails,
   teamAwards,
 } from "./pages/teams";
+import { getScript, createHtmlNode, htmlEntities } from "./utils";
 
 import eventsInit from "./events/main";
 
@@ -45,6 +45,7 @@ dayjs.extend(advancedFormat);
 
 const user = {};
 const _internal = {};
+
 const _functions = {
   challenge: {
     // Displaying challenge and render challenge
@@ -67,7 +68,7 @@ const _functions = {
       alert(errorMsg);
     },
 
-    // Submit challenge and display reponse data
+    // Submit challenge and display response data
     submitChallenge: null,
     displaySubmissionResponse: null,
 
@@ -86,6 +87,11 @@ const _functions = {
     eventToast: null,
     eventBackground: null,
   },
+  utils: {
+    getScript,
+    createHtmlNode,
+    htmlEntities
+  }
 };
 const ui = {
   htmlEntities,
