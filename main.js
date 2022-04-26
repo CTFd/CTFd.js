@@ -38,10 +38,13 @@ import eventsInit from "./events/main";
 
 import MarkdownIt from "markdown-it";
 import $ from "cash-dom";
+
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(advancedFormat);
+dayjs.extend(relativeTime);
 
 const user = {};
 const _internal = {};
