@@ -43,7 +43,11 @@ import advancedFormat from "dayjs/plugin/advancedFormat";
 
 dayjs.extend(advancedFormat);
 
-const user = {};
+const user = {
+  id: null,
+  name: null,
+  email: null,
+};
 const _internal = {};
 const _functions = {
   challenge: {
@@ -149,12 +153,12 @@ const init = (data) => {
   config.urlRoot = data.urlRoot || config.urlRoot;
   config.csrfNonce = data.csrfNonce || config.csrfNonce;
   config.userMode = data.userMode || config.userMode;
-  config.userName = data.userName || config.userName;
-  config.userEmail = data.userEmail || config.userEmail;
   config.start = data.start || config.start;
   config.end = data.end || config.end;
   config.themeSettings = data.themeSettings || config.themeSettings;
   user.id = data.userId;
+  user.name = data.userName || user.name;
+  user.email = data.userEmail || user.email;
 
   eventsInit(config.urlRoot);
 };
