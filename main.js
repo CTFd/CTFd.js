@@ -1,11 +1,6 @@
 import fetch from "./fetch";
 import config from "./config";
-import {
-  colorHash,
-  copyToClipboard,
-  hashCode,
-  renderTimes,
-} from "./ui";
+import { colorHash, copyToClipboard, hashCode, renderTimes } from "./ui";
 import {
   getChallenges,
   getChallenge,
@@ -32,7 +27,8 @@ import {
   teamFails,
   teamAwards,
 } from "./pages/teams";
-import { getScript, createHtmlNode, htmlEntities } from "./utils";
+import { getScript } from "./utils/ajax";
+import { createHtmlNode, htmlEntities } from "./utils/html";
 
 import eventsInit from "./events/main";
 
@@ -96,10 +92,10 @@ const _functions = {
     },
     html: {
       createHtmlNode,
-      htmlEntities
+      htmlEntities,
     },
-  }
-}
+  },
+};
 const ui = {
   htmlEntities,
   colorHash,
