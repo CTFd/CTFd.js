@@ -91,11 +91,15 @@ const _functions = {
     eventBackground: null,
   },
   utils: {
-    getScript,
-    createHtmlNode,
-    htmlEntities
+    ajax: {
+      getScript,
+    },
+    html: {
+      createHtmlNode,
+      htmlEntities
+    },
   }
-};
+}
 const ui = {
   htmlEntities,
   colorHash,
