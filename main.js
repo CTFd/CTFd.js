@@ -1,12 +1,6 @@
 import fetch from "./fetch";
 import config from "./config";
-import {
-  htmlEntities,
-  colorHash,
-  copyToClipboard,
-  hashCode,
-  renderTimes,
-} from "./ui";
+import { colorHash, copyToClipboard, hashCode, renderTimes } from "./ui";
 import {
   getChallenges,
   getChallenge,
@@ -33,15 +27,20 @@ import {
   teamFails,
   teamAwards,
 } from "./pages/teams";
+import { getScript } from "./utils/ajax";
+import { createHtmlNode, htmlEntities } from "./utils/html";
 
 import eventsInit from "./events/main";
 
 import MarkdownIt from "markdown-it";
 import $ from "cash-dom";
+
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(advancedFormat);
+dayjs.extend(relativeTime);
 
 const user = {
   id: null,
@@ -49,6 +48,7 @@ const user = {
   email: null,
 };
 const _internal = {};
+
 const _functions = {
   challenge: {
     // Displaying challenge and render challenge
@@ -71,7 +71,7 @@ const _functions = {
       alert(errorMsg);
     },
 
-    // Submit challenge and display reponse data
+    // Submit challenge and display response data
     submitChallenge: null,
     displaySubmissionResponse: null,
 
@@ -89,6 +89,15 @@ const _functions = {
     eventAlert: null,
     eventToast: null,
     eventBackground: null,
+  },
+  utils: {
+    ajax: {
+      getScript,
+    },
+    html: {
+      createHtmlNode,
+      htmlEntities,
+    },
   },
 };
 const ui = {
