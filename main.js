@@ -90,15 +90,6 @@ const _functions = {
     eventToast: null,
     eventBackground: null,
   },
-  utils: {
-    ajax: {
-      getScript,
-    },
-    html: {
-      createHtmlNode,
-      htmlEntities,
-    },
-  },
 };
 const ui = {
   htmlEntities,
@@ -106,6 +97,15 @@ const ui = {
   copyToClipboard,
   hashCode,
   renderTimes,
+};
+const utils = {
+  ajax: {
+    getScript,
+  },
+  html: {
+    createHtmlNode,
+    htmlEntities,
+  },
 };
 const pages = {
   challenge: {
@@ -193,6 +193,7 @@ const CTFd = {
   fetch,
   user,
   ui,
+  utils,
   pages,
   _internal,
   _functions,
