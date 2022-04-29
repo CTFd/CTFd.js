@@ -1,5 +1,5 @@
 import CTFd from "../main";
-import { getScript } from "../utils";
+import { getScript } from "../utils/ajax";
 import { getChallenge } from "./challenges";
 
 // Challenge UI
