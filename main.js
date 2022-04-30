@@ -47,6 +47,10 @@ const user = {
   name: null,
   email: null,
 };
+const team = {
+  id: null,
+  name: null,
+}
 const _internal = {};
 
 const _functions = {
@@ -168,6 +172,8 @@ const init = (data) => {
   user.id = data.userId;
   user.name = data.userName || user.name;
   user.email = data.userEmail || user.email;
+  team.id = data.teamId;
+  team.name = data.teamName || team.name;
 
   eventsInit(config.urlRoot);
 };
@@ -192,6 +198,7 @@ const CTFd = {
   config,
   fetch,
   user,
+  team,
   ui,
   utils,
   pages,
