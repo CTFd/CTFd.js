@@ -14,7 +14,6 @@
     "dayjs": "^1.10.5",
     "event-source-polyfill": "^1.0.24",
     "howler": "^2.2.1",
-    "markdown-it": "~10.0.0",
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {

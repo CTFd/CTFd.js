@@ -32,7 +32,6 @@ import { createHtmlNode, htmlEntities } from "./utils/html";
 
 import eventsInit from "./events/main";
 
-import MarkdownIt from "markdown-it";
 import $ from "cash-dom";
 
 import dayjs from "dayjs";
@@ -152,7 +151,6 @@ const pages = {
 };
 const lib = {
   $,
-  markdown,
   dayjs,
 };
 
@@ -182,16 +180,6 @@ const plugin = {
     f(CTFd);
   },
 };
-function markdown(config) {
-  // Merge passed config with original. Default to original.
-  const md_config = { ...{ html: true, linkify: true }, ...config };
-  const md = MarkdownIt(md_config);
-  md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
-    tokens[idx].attrPush(["target", "_blank"]);
-    return self.renderToken(tokens, idx, options);
-  };
-  return md;
-}
 
 const CTFd = {
   init,
