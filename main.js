@@ -92,6 +92,7 @@ const _functions = {
     eventAlert: null,
     eventToast: null,
     eventBackground: null,
+    eventRead: null,
   },
 };
 const ui = {

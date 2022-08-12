@@ -1,6 +1,7 @@
 import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
 import { WindowController } from "./controller";
 import { Howl } from "howler";
+import { getUnreadNotifications, insertUnreadNotification } from "./counter";
 import CTFd from "../main";
 
 const EventSource = NativeEventSource || EventSourcePolyfill;
@@ -21,6 +22,12 @@ export default root => {
       function(event) {
         let data = JSON.parse(event.data);
         wc.broadcast("notification", data);
+
+        insertUnreadNotification(data.id);
+        wc.broadcast("counter");
+
+        // Update notification count
+        updateCount();
 
         // Render in the master tab
         render(data);
@@ -62,6 +69,10 @@ export default root => {
     }
   }
 
+  function updateCount() {
+    document.querySelector("#unread-count").textContent = getUnreadNotifications().length;
+  }
+
   wc.alert = function(data) {
     render(data);
   };
@@ -74,6 +85,10 @@ export default root => {
     render(data);
   };
 
+  wc.counter = function(data) {
+    updateCount();
+  }
+
   wc.masterDidChange = function() {
     if (this.isMaster) {
       connect();
@@ -81,4 +96,6 @@ export default root => {
       disconnect();
     }
   };
+
+  document.querySelector("#unread-count").textContent = getUnreadNotifications().length;
 };
