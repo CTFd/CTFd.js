@@ -6,48 +6,50 @@ import CTFd from "../main";
 
 const EventSource = NativeEventSource || EventSourcePolyfill;
 
-export default root => {
-  const source = new EventSource(root + "/events");
-  const wc = new WindowController();
-  const howl = new Howl({
-    src: [
-      root + "/themes/core/static/sounds/notification.webm",
-      root + "/themes/core/static/sounds/notification.mp3"
-    ]
-  });
-
-  function connect() {
-    source.addEventListener(
+const events = {
+  init: (root) => {
+    events.source = new EventSource(root + "/events");
+    events.howl = new Howl({
+      src: [
+        root + "/themes/core/static/sounds/notification.webm",
+        root + "/themes/core/static/sounds/notification.mp3",
+      ],
+    });
+    events.updateCount();
+  },
+  controller: new WindowController(),
+  source: null,
+  howl: null,
+  connect: () => {
+    events.source.addEventListener(
       "notification",
-      function(event) {
+      function (event) {
         let data = JSON.parse(event.data);
-        wc.broadcast("notification", data);
+        events.controller.broadcast("notification", data);
 
         insertUnreadNotification(data.id);
-        wc.broadcast("counter");
+        events.controller.broadcast("counter");
 
         // Update notification count
-        updateCount();
+        events.updateCount();
 
         // Render in the master tab
-        render(data);
+        events.render(data);
 
         // Only play sounds in the master tab
         if (data.sound) {
-          howl.play();
+          events.howl.play();
         }
       },
       false
     );
-  }
-
-  function disconnect() {
-    if (source) {
-      source.close();
+  },
+  disconnect: () => {
+    if (events.source) {
+      events.source.close();
     }
-  }
-
-  function render(data) {
+  },
+  render: (data) => {
     switch (data.type) {
       case "toast": {
         CTFd._functions.events.eventToast(data);
@@ -67,35 +69,35 @@ export default root => {
         break;
       }
     }
-  }
-
-  function updateCount() {
-    document.querySelector("#unread-count").textContent = getUnreadNotifications().length;
-  }
-
-  wc.alert = function(data) {
-    render(data);
-  };
-
-  wc.toast = function(data) {
-    render(data);
-  };
-
-  wc.background = function(data) {
-    render(data);
-  };
-
-  wc.counter = function(data) {
-    updateCount();
-  }
-
-  wc.masterDidChange = function() {
-    if (this.isMaster) {
-      connect();
-    } else {
-      disconnect();
-    }
-  };
-
-  document.querySelector("#unread-count").textContent = getUnreadNotifications().length;
+  },
+  updateCount: () => {
+    document.querySelector("#unread-count").textContent =
+      getUnreadNotifications().length;
+  },
 };
+
+events.controller.alert = function (data) {
+  events.render(data);
+};
+
+events.controller.toast = function (data) {
+  events.render(data);
+};
+
+events.controller.background = function (data) {
+  events.render(data);
+};
+
+events.controller.counter = function (data) {
+  events.updateCount();
+};
+
+events.controller.masterDidChange = function () {
+  if (this.isMaster) {
+    events.connect();
+  } else {
+    events.disconnect();
+  }
+};
+
+export default events;

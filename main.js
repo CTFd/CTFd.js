@@ -30,7 +30,7 @@ import {
 import { getScript } from "./utils/ajax";
 import { createHtmlNode, htmlEntities } from "./utils/html";
 
-import eventsInit from "./events/main";
+import events from "./events/main";
 
 import $ from "cash-dom";
 
@@ -174,7 +174,7 @@ const init = (data) => {
   team.id = data.teamId;
   team.name = data.teamName || team.name;
 
-  eventsInit(config.urlRoot);
+  events.init(config.urlRoot);
 };
 const plugin = {
   run: (f) => {
@@ -191,6 +191,7 @@ const CTFd = {
   ui,
   utils,
   pages,
+  events,
   _internal,
   _functions,
   plugin,
