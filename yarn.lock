@@ -17,11 +17,6 @@ esbuild@^0.12.15:
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.15.tgz#9d99cf39aeb2188265c5983e983e236829f08af0"
   integrity sha512-72V4JNd2+48eOVCXx49xoSWHgC3/cCy96e7mbXKY+WOWghN00cCmlGnwVLRhRHorvv0dgCyuMYBZlM2xDM5OQw==
 
-event-source-polyfill@^1.0.24:
-  version "1.0.24"
-  resolved "https://registry.yarnpkg.com/event-source-polyfill/-/event-source-polyfill-1.0.24.tgz#46045e9af2190fd51234de0075d71c909907f937"
-  integrity sha512-aEtMhrH5ww3X6RgbsNcwu0whw8zjOoeRnwPqRKqKuxWS5KlAZhCY+rTm6wMlHOXbxmLGn8lW6Xox7rfpBExzGA==
-
 howler@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/howler/-/howler-2.2.1.tgz#a521a9b495841e8bb9aa12e651bebba0affc179e"
