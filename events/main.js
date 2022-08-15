@@ -14,13 +14,14 @@ import {
 import CTFd from "../main";
 
 const events = {
-  init: (root) => {
+  init: (root, eventSounds) => {
     events.source = new EventSource(root + "/events");
+    for (let i = 0; i < eventSounds.length; i++) {
+      eventSounds[i] = `${root}${eventSounds[i]}`;
+    }
+    console.log(eventSounds);
     events.howl = new Howl({
-      src: [
-        root + "/themes/core/static/sounds/notification.webm",
-        root + "/themes/core/static/sounds/notification.mp3",
-      ],
+      src: eventSounds,
     });
   },
   controller: new WindowController(),

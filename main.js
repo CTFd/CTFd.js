@@ -49,7 +49,7 @@ const user = {
 const team = {
   id: null,
   name: null,
-}
+};
 const _internal = {};
 
 const _functions = {
@@ -169,13 +169,14 @@ const init = (data) => {
   config.start = data.start || config.start;
   config.end = data.end || config.end;
   config.themeSettings = data.themeSettings || config.themeSettings;
+  config.eventSounds = data.eventSounds || config.eventSounds;
   user.id = data.userId;
   user.name = data.userName || user.name;
   user.email = data.userEmail || user.email;
   team.id = data.teamId;
   team.name = data.teamName || team.name;
 
-  events.init(config.urlRoot);
+  events.init(config.urlRoot, config.eventSounds);
 };
 const plugin = {
   run: (f) => {
