@@ -8,8 +8,9 @@ export function setReadNotifications(notifications){
 }
 export function insertReadNotification(notificationId){
   let readNotifs = getReadNotifications();
-  readNotifs.push(notificationId)
-  localStorage.setItem("CTFd:read_notifications", JSON.stringify(readNotifs));
+  readNotifs.push(notificationId);
+  setReadNotifications(readNotifs);
+  removeUnreadNotification(notificationId);
   return readNotifs;
 }
 export function getLastReadNotification() {
@@ -25,6 +26,11 @@ export function getUnreadNotifications(){
 }
 export function setUnreadNotifications(notifications){
   localStorage.setItem("CTFd:unread_notifications", JSON.stringify(notifications));
+}
+export function removeUnreadNotification(notificationId) {
+  let notifications = getUnreadNotifications();
+  notifications = notifications.filter(n => n !== notificationId);
+  setUnreadNotifications(notifications);
 }
 export function insertUnreadNotification(notificationId) {
   let unreadNotifs = getUnreadNotifications();
