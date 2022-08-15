@@ -1,7 +1,17 @@
 import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
 import { WindowController } from "./controller";
 import { Howl } from "howler";
-import { getUnreadNotifications, insertUnreadNotification } from "./counter";
+import {
+  getReadNotifications,
+  setReadNotifications,
+  insertReadNotification,
+  getLastReadNotification,
+  getUnreadNotifications,
+  setUnreadNotifications,
+  removeUnreadNotification,
+  insertUnreadNotification,
+  markUnreadNotifications,
+} from "./counter";
 import CTFd from "../main";
 
 const EventSource = NativeEventSource || EventSourcePolyfill;
@@ -15,7 +25,6 @@ const events = {
         root + "/themes/core/static/sounds/notification.mp3",
       ],
     });
-    events.updateCount();
   },
   controller: new WindowController(),
   source: null,
@@ -27,11 +36,12 @@ const events = {
         let data = JSON.parse(event.data);
         events.controller.broadcast("notification", data);
 
-        insertUnreadNotification(data.id);
-        events.controller.broadcast("counter");
+        CTFd.events.counter.unread.add(data.id);
 
         // Update notification count
-        events.updateCount();
+        let count = CTFd.events.counter.unread.getAll().length;
+        events.controller.broadcast("counter", {"count": count});
+        CTFd._functions.events.eventCount(count);
 
         // Render in the master tab
         events.render(data);
@@ -70,9 +80,20 @@ const events = {
       }
     }
   },
-  updateCount: () => {
-    document.querySelector("#unread-count").textContent =
-      getUnreadNotifications().length;
+  counter: {
+    read: {
+      getAll: getReadNotifications,
+      setAll: setReadNotifications,
+      add: insertReadNotification,
+      getLast: getLastReadNotification,
+    },
+    unread: {
+      getAll: getUnreadNotifications,
+      setAll: setUnreadNotifications,
+      add: insertUnreadNotification,
+      remove: removeUnreadNotification,
+      readAll: markUnreadNotifications,
+    },
   },
 };
 
@@ -89,7 +110,7 @@ events.controller.background = function (data) {
 };
 
 events.controller.counter = function (data) {
-  events.updateCount();
+  CTFd._functions.events.eventCount(data.count);
 };
 
 events.controller.masterDidChange = function () {
