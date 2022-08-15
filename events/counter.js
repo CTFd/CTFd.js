@@ -1,12 +1,15 @@
-export function getReadNotifications(){
-  let readNotifs = localStorage.getItem("CTFd:read_notifications") || "[]"
+export function getReadNotifications() {
+  let readNotifs = localStorage.getItem("CTFd:read_notifications") || "[]";
   readNotifs = JSON.parse(readNotifs);
   return readNotifs;
 }
-export function setReadNotifications(notifications){
-  localStorage.setItem("CTFd:read_notifications", JSON.stringify(notifications));
+export function setReadNotifications(notifications) {
+  localStorage.setItem(
+    "CTFd:read_notifications",
+    JSON.stringify(notifications)
+  );
 }
-export function insertReadNotification(notificationId){
+export function insertReadNotification(notificationId) {
   let readNotifs = getReadNotifications();
   readNotifs.push(notificationId);
   setReadNotifications(readNotifs);
@@ -18,24 +21,29 @@ export function getLastReadNotification() {
   return Math.max(...readNotifs);
 }
 
-
-export function getUnreadNotifications(){
-  let unreadNotifs = localStorage.getItem("CTFd:unread_notifications") || "[]"
+export function getUnreadNotifications() {
+  let unreadNotifs = localStorage.getItem("CTFd:unread_notifications") || "[]";
   unreadNotifs = JSON.parse(unreadNotifs);
   return unreadNotifs;
 }
-export function setUnreadNotifications(notifications){
-  localStorage.setItem("CTFd:unread_notifications", JSON.stringify(notifications));
+export function setUnreadNotifications(notifications) {
+  localStorage.setItem(
+    "CTFd:unread_notifications",
+    JSON.stringify(notifications)
+  );
 }
 export function removeUnreadNotification(notificationId) {
   let notifications = getUnreadNotifications();
-  notifications = notifications.filter(n => n !== notificationId);
+  notifications = notifications.filter((n) => n !== notificationId);
   setUnreadNotifications(notifications);
 }
 export function insertUnreadNotification(notificationId) {
   let unreadNotifs = getUnreadNotifications();
-  unreadNotifs.push(notificationId)
-  localStorage.setItem("CTFd:unread_notifications", JSON.stringify(unreadNotifs));
+  unreadNotifs.push(notificationId);
+  localStorage.setItem(
+    "CTFd:unread_notifications",
+    JSON.stringify(unreadNotifs)
+  );
   return unreadNotifs;
 }
 export function markUnreadNotifications() {
@@ -44,13 +52,3 @@ export function markUnreadNotifications() {
   setReadNotifications(read.concat(unread));
   setUnreadNotifications([]);
 }
-
-
-// export async function getUnreadCount() {
-//   let since = getLastReadNotification();
-//   let url = since ? `/api/v1/notifications?since_id=${since}` : "/api/v1/notifications";
-//   const response = await CTFd.fetch(url, {
-//     method: "HEAD"
-//   });
-//   return response.headers["result-count"];
-// }
