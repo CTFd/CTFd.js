@@ -18,6 +18,9 @@ export function insertReadNotification(notificationId) {
 }
 export function getLastReadNotification() {
   let readNotifs = getReadNotifications();
+  if (readNotifs.length == 0) {
+    return 0;
+  }
   return Math.max(...readNotifs);
 }
 
