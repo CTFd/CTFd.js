@@ -1,4 +1,3 @@
-import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
 import { WindowController } from "./controller";
 import { Howl } from "howler";
 import {
@@ -13,8 +12,6 @@ import {
   markUnreadNotifications,
 } from "./counter";
 import CTFd from "../main";
-
-const EventSource = NativeEventSource || EventSourcePolyfill;
 
 const events = {
   init: (root) => {
@@ -40,7 +37,7 @@ const events = {
 
         // Update notification count
         let count = CTFd.events.counter.unread.getAll().length;
-        events.controller.broadcast("counter", {"count": count});
+        events.controller.broadcast("counter", { count: count });
         CTFd._functions.events.eventCount(count);
 
         // Render in the master tab
