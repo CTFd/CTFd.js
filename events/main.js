@@ -22,6 +22,18 @@ const events = {
     events.howl = new Howl({
       src: eventSounds,
     });
+
+    let lastId = getLastReadNotification();
+    CTFd.fetch(`/api/v1/notifications?since_id=${lastId}`, {
+      method: "HEAD",
+    }).then((response) => {
+      let unread = response.headers.get("result-count");
+      if (unread) {
+        // Sync count between tabs
+        events.controller.broadcast("counter", { count: unread });
+        CTFd._functions.events.eventCount(unread);
+      }
+    });
   },
   controller: new WindowController(),
   source: null,
