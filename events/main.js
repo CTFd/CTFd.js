@@ -19,7 +19,6 @@ const events = {
     for (let i = 0; i < eventSounds.length; i++) {
       eventSounds[i] = `${root}${eventSounds[i]}`;
     }
-    console.log(eventSounds);
     events.howl = new Howl({
       src: eventSounds,
     });
