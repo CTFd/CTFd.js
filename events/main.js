@@ -26,7 +26,7 @@ const events = {
     let lastId = getLastReadNotification();
     CTFd.fetch(`/api/v1/notifications?since_id=${lastId}`, {
       method: "HEAD",
-    }).then((response) => {
+    }).then(response => {
       let unread = response.headers.get("result-count");
       if (unread) {
         // Sync count between tabs
@@ -68,7 +68,7 @@ const events = {
       events.source.close();
     }
   },
-  render: (data) => {
+  render: data => {
     switch (data.type) {
       case "toast": {
         CTFd._functions.events.eventToast(data);

@@ -1,5 +1,5 @@
 export function getScript(src) {
-  const p = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const script = document.createElement("script");
     document.body.appendChild(script);
     script.onload = resolve;
@@ -7,6 +7,4 @@ export function getScript(src) {
     script.async = true;
     script.src = src;
   });
-
-  return p;
 }

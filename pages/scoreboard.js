@@ -2,18 +2,16 @@ import CTFd from "../main";
 
 export async function getScoreboard() {
   const response = await CTFd.fetch("/api/v1/scoreboard", {
-    method: "GET"
+    method: "GET",
   });
   const body = await response.json();
-  let scoreboard = body["data"];
-  return scoreboard;
+  return body["data"]; // scoreboard data
 }
 
 export async function getScoreboardDetail(count) {
   const response = await CTFd.fetch(`/api/v1/scoreboard/top/${count}`, {
-    method: "GET"
+    method: "GET",
   });
   const body = await response.json();
-  let scoreboard = body["data"];
-  return scoreboard;
+  return body["data"]; // scoreboard data
 }

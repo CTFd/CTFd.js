@@ -1,11 +1,16 @@
 {
   "name": "@ctfdio/ctfd-js",
   "version": "0.0.9",
-  "description": "Javascript library for CTFd interface and themeing",
+  "description": "Javascript library for CTFd interface and theming",
   "main": "main.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/CTFd/CTFd.js.git"
+  },
+  "scripts": {
+    "build": "esbuild main.js --bundle --outfile=./dist/ctfd.dist.js",
+    "lint": "prettier --check *.js ./**/*.js",
+    "format": "prettier --write *.js ./**/*.js"
   },
   "author": "CTFd LLC <opensource@ctfd.io>",
   "license": "Apache-2.0",
@@ -17,6 +22,6 @@
   },
   "devDependencies": {
     "esbuild": "^0.12.15",
-    "prettier": "^2.6.2"
+    "prettier": "^2.7.1"
   }
 }

@@ -1,6 +1,6 @@
 import CTFd from "../main";
-import { getScript } from "../utils/ajax";
-import { getChallenge } from "./challenges";
+import {getScript} from "../utils/ajax";
+import {getChallenge} from "./challenges";
 
 // Challenge UI
 export async function displayChallenge(challengeId, renderChallenge) {
@@ -27,8 +27,6 @@ export async function displayChallenge(challengeId, renderChallenge) {
       CTFd._functions.challenge.renderChallenge(internal);
     } else if (renderChallenge) {
       renderChallenge(internal);
-    } else {
-      // pass
     }
 
     internal.postRender();
@@ -46,8 +44,8 @@ export async function submitChallenge(challengeId, challengeValue) {
     method: "POST",
     body: JSON.stringify({
       challenge_id: challengeId,
-      submission: challengeValue
-    })
+      submission: challengeValue,
+    }),
   });
   const result = await response.json();
 
@@ -61,19 +59,19 @@ export async function submitChallenge(challengeId, challengeValue) {
 // Hints
 export async function loadHint(hintId) {
   const response = await CTFd.fetch(`/api/v1/hints/${hintId}`, {
-    method: "GET"
+    method: "GET",
   });
-  let hint = await response.json();
-  return hint;
+
+  return await response.json(); // hint
 }
 
 export async function loadUnlock(hintId) {
   const response = await CTFd.fetch(`/api/v1/unlocks`, {
     method: "POST",
-    body: JSON.stringify({ target: hintId, type: "hints" })
+    body: JSON.stringify({ target: hintId, type: "hints" }),
   });
-  const unlock = await response.json();
-  return unlock;
+
+  return await response.json(); // unlock
 }
 
 export async function displayHint(hintId) {
@@ -81,41 +79,39 @@ export async function displayHint(hintId) {
   let hint = response.data;
   if (hint.content) {
     CTFd._functions.challenge.displayHint(hint);
-    return;
-  } else {
-    let res = await displayUnlock(hint);
-    if (res) {
-      let unlock = loadUnlock(hintId);
+    return
+  }
 
-      // Display hint or error depending on unlock
-      if (unlock.success) {
-        displayHint(hintId);
-      } else {
-        CTFd._functions.challenge.displayUnlockError(unlock);
-      }
+  let res = await displayUnlock(hint);
+  if (res) {
+    let unlock = loadUnlock(hintId);
+
+    // Display hint or error depending on unlock
+    if (unlock.success) {
+      await displayHint(hintId);
+    } else {
+      CTFd._functions.challenge.displayUnlockError(unlock);
     }
   }
 }
+
 export async function displayUnlock(hint) {
   return CTFd._functions.challenge.displayUnlock(hint);
 }
 
 // Solves
 export async function loadSolves(challengeId) {
-  const response = await CTFd.fetch(
-    `/api/v1/challenges/${challengeId}/solves`,
-    {
-      method: "GET"
-    }
-  );
+  const response = await CTFd.fetch(`/api/v1/challenges/${challengeId}/solves`, {
+    method: "GET",
+  });
   const body = await response.json();
   return body["data"];
 }
 
 export async function displaySolves(challengeId) {
   let solves = await loadSolves(challengeId);
+
   if (CTFd._functions.challenge.displaySolves) {
     CTFd._functions.challenge.displaySolves(solves);
-    return;
   }
 }
