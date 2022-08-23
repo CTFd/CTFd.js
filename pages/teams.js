@@ -6,49 +6,51 @@ export async function getInviteToken() {
     credentials: "same-origin",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   });
-  const token = await response.json();
-  return token;
+
+  return await response.json(); // token
 }
 
 export async function disbandTeam() {
   const response = await CTFd.fetch("/api/v1/teams/me", {
-    method: "DELETE"
+    method: "DELETE",
   });
-  const body = await response.json();
-  return body;
+
+  return await response.json(); // body
 }
 
 export async function updateTeamSettings(body) {
   const response = await CTFd.fetch("/api/v1/teams/me", {
     method: "PATCH",
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   });
-  const settings = await response.json();
-  return settings;
+
+  return await response.json(); // settings
 }
 
 // Statistics
 export async function teamSolves(teamId) {
   const response = await CTFd.fetch(`/api/v1/teams/${teamId}/solves`, {
-    method: "GET"
+    method: "GET",
   });
-  const body = await response.json();
-  return body;
+
+  return await response.json(); // body
 }
+
 export async function teamFails(teamId) {
   const response = await CTFd.fetch(`/api/v1/teams/${teamId}/fails`, {
-    method: "GET"
+    method: "GET",
   });
-  const body = await response.json();
-  return body;
+
+  return await response.json(); // body
 }
+
 export async function teamAwards(teamId) {
   const response = await CTFd.fetch(`/api/v1/teams/${teamId}/awards`, {
-    method: "GET"
+    method: "GET",
   });
-  const body = await response.json();
-  return body;
+
+  return await response.json(); // body
 }

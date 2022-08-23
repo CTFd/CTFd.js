@@ -1,11 +1,7 @@
 import fetch from "./fetch";
 import config from "./config";
 import { colorHash, copyToClipboard, hashCode, renderTimes } from "./ui";
-import {
-  getChallenges,
-  getChallenge,
-  displayChallenges,
-} from "./pages/challenges";
+import { getChallenges, getChallenge, displayChallenges } from "./pages/challenges";
 import {
   displayChallenge,
   submitChallenge,
@@ -59,18 +55,22 @@ const _functions = {
     renderChallenge: null,
 
     // Displaying hints and unlocks
-    displayHint: (hint) => {
+    displayHint(hint) {
       alert(hint.content);
     },
-    displayUnlock: (hint) => {
+
+    displayUnlock(hint) {
       return confirm("Are you sure you'd like to unlock this hint?");
     },
-    displayUnlockError: (unlock) => {
-      let msg = [];
-      Object.keys(unlock.errors).map((error) => {
+
+    displayUnlockError(unlock) {
+      const msg = [];
+
+      Object.keys(unlock.errors).map(error => {
         msg.push(unlock.errors[error]);
       });
-      let errorMsg = msg.join("\n");
+
+      const errorMsg = msg.join("\n");
       alert(errorMsg);
     },
 
@@ -81,6 +81,7 @@ const _functions = {
     // Display solves for challenge
     displaySolves: null,
   },
+
   challenges: {
     // Display challenges on page
     displayChallenges: null,
@@ -88,6 +89,7 @@ const _functions = {
     // How to sort challenges before display
     sortChallenges: null,
   },
+
   events: {
     eventAlert: null,
     eventToast: null,
@@ -96,6 +98,7 @@ const _functions = {
     eventCount: null,
   },
 };
+
 const ui = {
   htmlEntities,
   colorHash,
@@ -103,6 +106,7 @@ const ui = {
   hashCode,
   renderTimes,
 };
+
 const utils = {
   ajax: {
     getScript,
@@ -112,6 +116,7 @@ const utils = {
     htmlEntities,
   },
 };
+
 const pages = {
   challenge: {
     displayChallenge,
@@ -151,13 +156,14 @@ const pages = {
     teamAwards,
   },
 };
+
 const lib = {
   $,
   dayjs,
 };
 
 let initialized = false;
-const init = (data) => {
+const init = data => {
   if (initialized) {
     return;
   }
@@ -178,8 +184,9 @@ const init = (data) => {
 
   events.init(config.urlRoot, config.eventSounds);
 };
+
 const plugin = {
-  run: (f) => {
+  run(f) {
     f(CTFd);
   },
 };

@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
+import $ from "cash-dom";
 
 dayjs.extend(advancedFormat);
 
@@ -10,20 +11,6 @@ export function renderTimes() {
     let timeFormat = timeElem.dataset.timeFormat;
     timeElem.innerText = dayjs(timeData).format(timeFormat);
   }
-}
-
-export function hashCode(s) {
-  let hash = 0,
-    i,
-    chr,
-    len;
-  if (s.length == 0) return hash;
-  for (i = 0, len = s.length; i < len; i++) {
-    chr = s.charCodeAt(i);
-    hash = (hash << 5) - hash + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return hash;
 }
 
 export function copyToClipboard(event, selector) {
@@ -47,6 +34,21 @@ export function copyToClipboard(event, selector) {
 
 export function htmlEntities(string) {
   return $("<div/>").text(string).html();
+}
+
+export function hashCode(s) {
+  let hash = 0, i, chr, len;
+
+  if (s.length === 0)
+    return hash;
+
+  for (i = 0, len = s.length; i < len; i++) {
+    chr = s.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+
+  return hash;
 }
 
 // https://gist.github.com/0x263b/2bdd90886c2036a1ad5bcf06d6e6fb37

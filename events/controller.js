@@ -1,107 +1,108 @@
 // https://gist.github.com/neilj/4146038
 // https://fastmail.blog/2012/11/26/inter-tab-communication-using-local-storage/
-export function WindowController() {
-  this.id = Math.random();
-  this.isMaster = false;
-  this.others = {};
 
-  window.addEventListener("storage", this, false);
-  window.addEventListener("unload", this, false);
+export class WindowController {
+  constructor() {
+    this.id = Math.random();
+    this.isMaster = false;
+    this.others = {};
 
-  this.broadcast("hello");
+    window.addEventListener("storage", this);
+    window.addEventListener("unload", this);
 
-  var that = this;
-  var check = function check() {
-    that.check();
-    that._checkTimeout = setTimeout(check, 9000);
-  };
-  var ping = function ping() {
-    that.sendPing();
-    that._pingTimeout = setTimeout(ping, 17000);
-  };
-  this._checkTimeout = setTimeout(check, 500);
-  this._pingTimeout = setTimeout(ping, 17000);
-}
+    this.broadcast("hello");
 
-WindowController.prototype.destroy = function() {
-  clearTimeout(this._pingTimeout);
-  clearTimeout(this._checkTimeout);
+    // schedule initial check
+    setTimeout(this.check.bind(this), 500);
 
-  window.removeEventListener("storage", this, false);
-  window.removeEventListener("unload", this, false);
+    this._checkInterval = setInterval(this.check.bind(this), 9000);
+    this._pingInterval = setInterval(this.sendPing.bind(this), 17000);
+  }
 
-  this.broadcast("bye");
-};
+  destroy() {
+    clearInterval(this._pingInterval);
+    clearInterval(this._checkInterval);
 
-WindowController.prototype.handleEvent = function(event) {
-  if (event.type === "unload") {
-    this.destroy();
-  } else if (event.key === "broadcast") {
-    try {
-      var data = JSON.parse(event.newValue);
-      if (data.id !== this.id) {
-        this[data.type](data);
+    window.removeEventListener("storage", this);
+    window.removeEventListener("unload", this);
+
+    this.broadcast("bye");
+  }
+
+  handleEvent(event) {
+    if (event.type === "unload") {
+      this.destroy();
+      return;
+    }
+
+    if (event.type === "broadcast") {
+      try {
+        const data = JSON.parse(event.newValue);
+
+        if (data.id !== this.id) {
+          this[data.type](data);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
     }
   }
-};
 
-WindowController.prototype.sendPing = function() {
-  this.broadcast("ping");
-};
+  sendPing() {
+    this.broadcast("ping");
+  }
 
-WindowController.prototype.hello = function(event) {
-  this.ping(event);
-  if (event.id < this.id) {
-    this.check();
-  } else {
+  hello(event) {
+    this.ping(event);
+
+    if (event.id < this.id) {
+      this.check();
+      return;
+    }
+
     this.sendPing();
   }
-};
 
-WindowController.prototype.ping = function(event) {
-  this.others[event.id] = +new Date();
-};
+  ping(event) {
+    this.others[event.id] = Date.now();
+  }
 
-WindowController.prototype.bye = function(event) {
-  delete this.others[event.id];
-  this.check();
-};
+  bye(event) {
+    delete this.others[event.id];
+    this.check();
+  }
 
-WindowController.prototype.check = function(_event) {
-  var now = +new Date(),
-    takeMaster = true,
-    id;
-  for (id in this.others) {
-    if (this.others[id] + 23000 < now) {
-      delete this.others[id];
-    } else if (id < this.id) {
-      takeMaster = false;
+  check() {
+    const now = Date.now();
+    let takeMaster = true;
+
+    for (const id in this.others) {
+      if (this.others[id] + 23000 < now) {
+        delete this.others[id];
+      } else if (id < this.id) {
+        takeMaster = false;
+      }
+    }
+
+    if (this.isMaster !== takeMaster) {
+      this.isMaster = takeMaster;
+      this.masterDidChange();
     }
   }
-  if (this.isMaster !== takeMaster) {
-    this.isMaster = takeMaster;
-    this.masterDidChange();
-  }
-};
 
-WindowController.prototype.masterDidChange = function() {};
+  masterDidChange() {}
 
-WindowController.prototype.broadcast = function(type, data) {
-  var event = {
-    id: this.id,
-    type: type
-  };
-  for (var x in data) {
-    event[x] = data[x];
+  broadcast(type, data) {
+    const event = {
+      id: this.id,
+      type,
+      ...data,
+    };
+
+    try {
+      localStorage.setItem("broadcast", JSON.stringify(event));
+    } catch (error) {
+      console.error(error);
+    }
   }
-  try {
-    localStorage.setItem("broadcast", JSON.stringify(event));
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(error);
-  }
-};
+}
