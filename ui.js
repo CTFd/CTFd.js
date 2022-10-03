@@ -37,10 +37,12 @@ export function htmlEntities(string) {
 }
 
 export function hashCode(s) {
-  let hash = 0, i, chr, len;
+  let hash = 0,
+    i,
+    chr,
+    len;
 
-  if (s.length === 0)
-    return hash;
+  if (s.length === 0) return hash;
 
   for (i = 0, len = s.length; i < len; i++) {
     chr = s.charCodeAt(i);
