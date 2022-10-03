@@ -9,7 +9,7 @@ export async function getChallenges() {
 
   // Call user func
   if (CTFd._functions.challenges.sortChallenges) {
-    challenges = CTFd._functions.sortChallenges(challenges);
+    challenges = CTFd._functions.challenges.sortChallenges(challenges);
   }
 
   return challenges;
