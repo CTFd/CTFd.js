@@ -1,6 +1,6 @@
 import CTFd from "../main";
-import {getScript} from "../utils/ajax";
-import {getChallenge} from "./challenges";
+import { getScript } from "../utils/ajax";
+import { getChallenge } from "./challenges";
 
 // Challenge UI
 export async function displayChallenge(challengeId, renderChallenge) {
@@ -79,7 +79,7 @@ export async function displayHint(hintId) {
   let hint = response.data;
   if (hint.content) {
     CTFd._functions.challenge.displayHint(hint);
-    return
+    return;
   }
 
   let res = await displayUnlock(hint);
