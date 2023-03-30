@@ -3,7 +3,15 @@ import config from "./config";
 
 const fetch = window.fetch;
 
-export default (url, options) => {
+function rfill(str) {
+  return str.replace(/\/$/, "") + "/";
+}
+
+function ltrim(str) {
+  return str.replace(/^\//, "");
+}
+
+export default (url, options, query = {}) => {
   if (options === undefined) {
     options = {
       method: "GET",
@@ -11,7 +19,9 @@ export default (url, options) => {
       headers: {},
     };
   }
-  url = config.urlRoot + url;
+
+  url = new URL(ltrim(url), rfill(config.urlRoot));
+  if (query.length > 0) url.search = new URLSearchParams(query);
 
   if (options.headers === undefined) {
     options.headers = {};

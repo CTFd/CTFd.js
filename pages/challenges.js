@@ -1,9 +1,7 @@
 import CTFd from "../main";
 
-export async function getChallenges() {
-  const response = await CTFd.fetch("/api/v1/challenges", {
-    method: "GET",
-  });
+export async function getChallenges(query = {}) {
+  const response = await CTFd.fetch("/api/v1/challenges", { method: "GET" }, query);
   const body = await response.json();
   let challenges = body["data"];
 

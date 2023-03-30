@@ -1,5 +1,17 @@
 import CTFd from "../main";
 
+export async function getTeams(page = 1, query = {}) {
+  const response = await CTFd.fetch(
+    "/api/v1/teams",
+    { method: "GET" },
+    { page, ...query }
+  );
+  const body = await response.json();
+  let teams = body["data"];
+
+  return teams;
+}
+
 export async function getInviteToken() {
   const response = await CTFd.fetch("/api/v1/teams/me/members", {
     method: "POST",
