@@ -2,8 +2,8 @@ import CTFd from "../main";
 
 export async function getChallenges(query = {}) {
   let url = "/api/v1/challenges";
-  let qs = new URLSearchParams(query).toString();
-  if (qs) {
+  if (Object.keys(query).length !== 0) {
+    let qs = new URLSearchParams(query).toString();
     url = `${url}?${qs}`;
   }
   const response = await CTFd.fetch(url, { method: "GET" });
