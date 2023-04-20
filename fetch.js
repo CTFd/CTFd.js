@@ -11,7 +11,6 @@ export default (url, options) => {
       headers: {},
     };
   }
-
   url = config.urlRoot + url;
 
   if (options.headers === undefined) {
