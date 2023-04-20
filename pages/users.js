@@ -1,11 +1,10 @@
 import CTFd from "../main";
 
 export async function getUsers(page = 1, query = {}) {
-  const response = await CTFd.fetch(
-    "/api/v1/users",
-    { method: "GET" },
-    { page, ...query }
-  );
+  let url = "/api/v1/users";
+  let qs = new URLSearchParams({ page, ...query }).toString();
+  url = `${url}?${qs}`;
+  const response = await CTFd.fetch(url, { method: "GET" });
   const body = await response.json();
   let users = body["data"];
 

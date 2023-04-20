@@ -1,11 +1,10 @@
 import CTFd from "../main";
 
 export async function getTeams(page = 1, query = {}) {
-  const response = await CTFd.fetch(
-    "/api/v1/teams",
-    { method: "GET" },
-    { page, ...query }
-  );
+  let url = "/api/v1/teams"
+  let qs = new URLSearchParams({ page, ...query }).toString();
+  url = `${url}?${qs}`;
+  const response = await CTFd.fetch(url, { method: "GET" });
   const body = await response.json();
   let teams = body["data"];
 
