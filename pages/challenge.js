@@ -33,14 +33,19 @@ export async function displayChallenge(challengeId, renderChallenge) {
   });
 }
 
-export async function submitChallenge(challengeId, challengeValue) {
+export async function submitChallenge(challengeId, challengeValue, preview = false) {
   // Call user func
   if (CTFd._functions.challenge.submitChallenge) {
     CTFd._functions.challenge.submitChallenge(challengeId, challengeValue);
     return;
   }
 
-  const response = await CTFd.fetch(`/api/v1/challenges/attempt`, {
+  let url = `/api/v1/challenges/attempt`;
+  if (preview === true || CTFd.config.preview === true) {
+    url += "?preview=true";
+  }
+
+  const response = await CTFd.fetch(url, {
     method: "POST",
     body: JSON.stringify({
       challenge_id: challengeId,

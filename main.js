@@ -176,6 +176,7 @@ const init = data => {
   config.end = data.end || config.end;
   config.themeSettings = data.themeSettings || config.themeSettings;
   config.eventSounds = data.eventSounds || config.eventSounds;
+  config.preview = false;
   user.id = data.userId;
   user.name = data.userName || user.name;
   user.email = data.userEmail || user.email;
