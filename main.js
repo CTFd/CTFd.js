@@ -12,7 +12,7 @@ import {
   displayUnlock,
   displayHint,
 } from "./pages/challenge";
-import { getScoreboard, getScoreboardDetail } from "./pages/scoreboard";
+import { getScoreboard, getScoreboardDetail, getBrackets } from "./pages/scoreboard";
 import { updateSettings, generateToken, deleteToken } from "./pages/settings";
 import { userSolves, userFails, userAwards } from "./pages/users";
 import {
@@ -136,6 +136,7 @@ const pages = {
   scoreboard: {
     getScoreboard,
     getScoreboardDetail,
+    getBrackets,
   },
   settings: {
     updateSettings,
