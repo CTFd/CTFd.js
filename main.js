@@ -14,7 +14,7 @@ import {
 } from "./pages/challenge";
 import { getScoreboard, getScoreboardDetail, getBrackets } from "./pages/scoreboard";
 import { updateSettings, generateToken, deleteToken } from "./pages/settings";
-import { userSolves, userFails, userAwards } from "./pages/users";
+import { userSolves, userFails, userAwards, userSubmissions } from "./pages/users";
 import {
   getInviteToken,
   disbandTeam,
@@ -147,6 +147,7 @@ const pages = {
     userSolves,
     userFails,
     userAwards,
+    userSubmissions,
   },
   teams: {
     getInviteToken,

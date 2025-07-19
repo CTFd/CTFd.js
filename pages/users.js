@@ -11,6 +11,17 @@ export async function getUsers(page = 1, query = {}) {
   return users;
 }
 
+export async function userSubmissions(userId = "me", challengeId) {
+  const response = await CTFd.fetch(
+    `/api/v1/users/${userId}/submissions?challenge_id=${challengeId}`,
+    {
+      method: "GET",
+    }
+  );
+
+  return await response.json(); // body
+}
+
 export async function userSolves(userId) {
   const response = await CTFd.fetch(`/api/v1/users/${userId}/solves`, {
     method: "GET",
