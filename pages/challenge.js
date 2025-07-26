@@ -120,3 +120,19 @@ export async function displaySolves(challengeId) {
     CTFd._functions.challenge.displaySolves(solves);
   }
 }
+
+export async function loadSolution(solutionId) {
+  const response = await CTFd.fetch(`/api/v1/solutions/${solutionId}`, {
+    method: "GET",
+  });
+
+  const body = await response.json();
+  return body["data"];
+}
+
+export async function displaySolution(solutionId) {
+  let solution = await loadSolution(solutionId);
+  if (CTFd._functions.challenge.displaySolution) {
+    CTFd._functions.challenge.displaySolution(solution);
+  }
+}
