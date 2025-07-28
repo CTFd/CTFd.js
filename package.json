@@ -1,6 +1,6 @@
 {
   "name": "@ctfdio/ctfd-js",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Javascript library for CTFd interface interactivity",
   "main": "main.js",
   "repository": {
