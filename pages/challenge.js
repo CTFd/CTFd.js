@@ -70,10 +70,10 @@ export async function loadHint(hintId) {
   return await response.json(); // hint
 }
 
-export async function loadUnlock(hintId) {
+export async function loadUnlock(targetId, targetType = "hints") {
   const response = await CTFd.fetch(`/api/v1/unlocks`, {
     method: "POST",
-    body: JSON.stringify({ target: hintId, type: "hints" }),
+    body: JSON.stringify({ target: targetId, type: targetType }),
   });
 
   return await response.json(); // unlock
@@ -87,9 +87,9 @@ export async function displayHint(hintId) {
     return;
   }
 
-  let res = await displayUnlock(hint);
+  let res = await displayHintUnlock(hint);
   if (res) {
-    let unlock = loadUnlock(hintId);
+    let unlock = await loadUnlock(hintId);
 
     // Display hint or error depending on unlock
     if (unlock.success) {
@@ -100,8 +100,20 @@ export async function displayHint(hintId) {
   }
 }
 
+/**
+ * @deprecated since 0.0.16 - use `displayHintUnlock()` instead.
+ */
 export async function displayUnlock(hint) {
+  // Deprecated use `displayHintUnlock()` or `displaySolutionUnlock()` instead
   return CTFd._functions.challenge.displayUnlock(hint);
+}
+
+export async function displayHintUnlock(hint) {
+  return CTFd._functions.challenge.displayHintUnlock(hint);
+}
+
+export async function displaySolutionUnlock(solution) {
+  return CTFd._functions.challenge.displaySolutionUnlock(solution);
 }
 
 // Solves
@@ -132,7 +144,22 @@ export async function loadSolution(solutionId) {
 
 export async function displaySolution(solutionId) {
   let solution = await loadSolution(solutionId);
-  if (CTFd._functions.challenge.displaySolution) {
-    CTFd._functions.challenge.displaySolution(solution);
+  if (solution.content) {
+    if (CTFd._functions.challenge.displaySolution) {
+      CTFd._functions.challenge.displaySolution(solution);
+      return;
+    }
+  }
+
+  let res = await displaySolutionUnlock(solution);
+  if (res) {
+    let unlock = await loadUnlock(solution.id, "solutions");
+
+    // Display hint or error depending on unlock
+    if (unlock.success) {
+      await displaySolution(solutionId);
+    } else {
+      CTFd._functions.challenge.displayUnlockError(unlock);
+    }
   }
 }
