@@ -13,6 +13,8 @@ import {
   displayHint,
   loadSolution,
   displaySolution,
+  displayHintUnlock,
+  displaySolutionUnlock,
 } from "./pages/challenge";
 import { getScoreboard, getScoreboardDetail, getBrackets } from "./pages/scoreboard";
 import { updateSettings, generateToken, deleteToken } from "./pages/settings";
@@ -63,6 +65,14 @@ const _functions = {
 
     displayUnlock(hint) {
       return confirm("Are you sure you'd like to unlock this hint?");
+    },
+
+    displayHintUnlock(hint) {
+      return confirm("Are you sure you'd like to unlock this hint?");
+    },
+
+    displaySolutionUnlock(solution) {
+      return confirm("Are you sure you'd like to unlock this solution?");
     },
 
     displayUnlockError(unlock) {
@@ -128,6 +138,8 @@ const pages = {
     loadHint,
     loadUnlock,
     displayUnlock,
+    displayHintUnlock,
+    displaySolutionUnlock,
     displayHint,
     loadSolution,
     displaySolution,
