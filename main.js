@@ -15,6 +15,7 @@ import {
   displaySolution,
   displayHintUnlock,
   displaySolutionUnlock,
+  submitRating,
 } from "./pages/challenge";
 import { getScoreboard, getScoreboardDetail, getBrackets } from "./pages/scoreboard";
 import { updateSettings, generateToken, deleteToken } from "./pages/settings";
@@ -143,6 +144,7 @@ const pages = {
     displayHint,
     loadSolution,
     displaySolution,
+    submitRating,
   },
   challenges: {
     getChallenges,

@@ -163,3 +163,13 @@ export async function displaySolution(solutionId) {
     }
   }
 }
+
+export async function submitRating(challengeId, rating) {
+  const response = await CTFd.fetch(`/api/v1/challenges/${challengeId}/ratings`, {
+    method: "PUT",
+    body: JSON.stringify({ value: rating }),
+  });
+
+  const body = await response.json();
+  return body["data"];
+}
