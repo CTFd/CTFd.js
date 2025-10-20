@@ -11,11 +11,13 @@ import {
   loadUnlock,
   displayUnlock,
   displayHint,
+  getSolution,
   loadSolution,
   displaySolution,
   displayHintUnlock,
   displaySolutionUnlock,
   submitRating,
+  checkSolution,
 } from "./pages/challenge";
 import { getScoreboard, getScoreboardDetail, getBrackets } from "./pages/scoreboard";
 import { updateSettings, generateToken, deleteToken } from "./pages/settings";
@@ -93,6 +95,9 @@ const _functions = {
 
     // Display solves for challenge
     displaySolves: null,
+
+    // Check whether UI should reach out for solution ID
+    checkSolution: null,
   },
 
   challenges: {
@@ -142,6 +147,8 @@ const pages = {
     displayHintUnlock,
     displaySolutionUnlock,
     displayHint,
+    getSolution,
+    checkSolution,
     loadSolution,
     displaySolution,
     submitRating,
