@@ -133,6 +133,34 @@ export async function displaySolves(challengeId) {
   }
 }
 
+export async function getSolution(challengeId) {
+  const response = await CTFd.fetch(`/api/v1/challenges/${challengeId}/solution`, {
+    method: "GET",
+  });
+
+  const body = await response.json();
+  return body["data"];
+}
+
+// Function to check whether the UI should check for a challenge solution
+export async function checkSolution(solutionState, challengeData, submissionStatus) {
+  if (CTFd._functions.challenge.checkSolution) {
+    return CTFd._functions.challenge.checkSolution(
+      solutionState,
+      challengeData,
+      submissionStatus
+    );
+  }
+  if (solutionState == "hidden" || solutionState == "visible") {
+    return false;
+  } else if (solutionState == "solved" && submissionStatus === "correct") {
+    return true;
+  } else {
+    // We default to true in case there is a solution state that we are not aware of
+    return true;
+  }
+}
+
 export async function loadSolution(solutionId) {
   const response = await CTFd.fetch(`/api/v1/solutions/${solutionId}`, {
     method: "GET",
