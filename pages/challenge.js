@@ -143,7 +143,7 @@ export async function getSolution(challengeId) {
 }
 
 // Function to check whether the UI should check for a challenge solution
-export async function checkSolution(solutionState, challengeData, submissionStatus) {
+export function checkSolution(solutionState, challengeData, submissionStatus) {
   if (CTFd._functions.challenge.checkSolution) {
     return CTFd._functions.challenge.checkSolution(
       solutionState,
