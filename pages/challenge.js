@@ -143,7 +143,7 @@ export async function getSolution(challengeId) {
 }
 
 // Function to check whether the UI should check for a challenge solution
-export async function checkSolution(solutionState, challengeData, submissionStatus) {
+export function checkSolution(solutionState, challengeData, submissionStatus) {
   if (CTFd._functions.challenge.checkSolution) {
     return CTFd._functions.challenge.checkSolution(
       solutionState,
@@ -153,8 +153,9 @@ export async function checkSolution(solutionState, challengeData, submissionStat
   }
   if (solutionState == "hidden" || solutionState == "visible") {
     return false;
-  } else if (solutionState == "solved" && submissionStatus === "correct") {
-    return true;
+  } else if (solutionState == "solved") {
+    // If solutionState is solved we should check if the user got their submission right
+    return submissionStatus === "correct";
   } else {
     // We default to true in case there is a solution state that we are not aware of
     return true;
