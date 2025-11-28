@@ -24,7 +24,7 @@ export async function displayChallenge(challengeId, renderChallenge) {
 
     // Call user func
     if (CTFd._functions.challenge.renderChallenge) {
-      CTFd._functions.challenge.renderChallenge(internal);
+      CTFd._functions.challenge.renderChallenge(internal, renderChallenge);
     } else if (renderChallenge) {
       renderChallenge(internal);
     }
